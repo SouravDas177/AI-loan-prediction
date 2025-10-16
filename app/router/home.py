@@ -76,9 +76,9 @@ def house_loan():
 @home_bp.route("/next_steps")
 def next_steps():
       # import the Mail instance initialized in __init__.py
-    user = User.query.filter_by(username=session["email"]).first()
+    
     result = session.get("pred", 0)
-
+    user = User.query.filter_by(username=session["email"]).first()
     recipient_email = [session["email"]]  # must be a list
 
     if result == 0:
