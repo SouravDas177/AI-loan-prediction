@@ -1,10 +1,13 @@
 from http.cookiejar import Cookie
 import os
-from flask import Blueprint, flash,render_template,redirect,request,url_for,session
-from ..models.model import User
 import pandas as pd
 import pickle
-from flask_mail import Mail, Message
+from flask import Blueprint, flash, render_template, redirect, request, url_for, session, current_app
+from .. import db
+from ..models.model import User
+from flask_mail import Message
+from .. import mail  # this is fine because mail.init_app(app) was called
+
 from .. import mail, db, create_app
 
 home_bp=Blueprint("home",__name__)
@@ -73,58 +76,53 @@ def house_loan():
         return redirect(url_for("auth.login"))
     
 
-@home_bp.route("/next_steps", methods=["GET","POST"])
+@home_bp.route("/next_steps")
 def next_steps():
-    if request.method == "POST":
-        result = session.get("pred", 0)
-        user = User.query.filter_by(username=session["email"]).first()
-        recipient_email = [session["email"]]  # must be a list
+    if "email" not in session or "pred" not in session:
+        flash("Session expired. Please re-run the loan prediction.", "warning")
+        return redirect(url_for("home.models"))
 
-        if result == 0:
-            # Loan denied
-            msg = Message(
-                subject="Update on Your Loan Application",
-                sender="sourav177official@gmail.com",
-                recipients=recipient_email
-            )
-            msg.body = f"""
-Dear {user},
+    result = session["pred"]
+    user = User.query.filter_by(email=session["email"]).first()
+    recipient_email = [session["email"]]
 
-We appreciate your recent application for a loan with [Your Company Name]. After careful review, we regret to inform you that we are unable to approve your loan request at this time.
+    if result == 0:
+        subject = "Update on Your Loan Application"
+        body = f"""
+        Dear {user.username},
 
-This decision was made based on our internal evaluation criteria. Please understand that this is not a reflection on your personal standing, and you are welcome to apply again in the future if your circumstances change.
+        We appreciate your recent application for a loan with [Your Company Name]. 
+        After careful review, we regret to inform you that we are unable to approve 
+        your loan request at this time.
 
-If you would like more information or guidance regarding your application, please do not hesitate to contact us at abcbank@gmail.com / 643453646456.
+        Please feel free to reapply in the future.
 
-Sincerely,
-Mohit Roy
-Loan provider
-"""
-            mail.send(msg)
+        Sincerely,
+        Mohit Roy
+        Loan Provider
+        """
+    else:
+        subject = "Your Loan Application Has Been Approved"
+        body = f"""
+        Dear {user.username},
 
-        else:
-            # Loan approved
-            msg = Message(
-                subject="Your Loan Application Has Been Approved",
-                sender="sourav177official@gmail.com",
-                recipients=recipient_email
-            )
-            msg.body = f"""
-Dear {user},
+        We are pleased to inform you that your loan application has been approved. 
+        Our team will contact you shortly for further steps.
 
-We are pleased to inform you that your loan application with [Your Company Name] has been approved.
+        Sincerely,
+        Mohit Roy
+        Loan Provider
+        """
 
-Our team will proceed with the necessary steps to process your loan. You will receive further instructions and details regarding the disbursement and repayment schedule shortly.
+    try:
+        msg = Message(subject=subject, sender="sourav177official@gmail.com", recipients=recipient_email)
+        msg.body = body
+        mail.send(msg)
+        flash("Email has been sent successfully!", "success")
+    except Exception as e:
+        current_app.logger.error("Email sending failed: %s", e)
+        flash("Failed to send email. Please try again later.", "danger")
 
-If you have any questions or need assistance, please do not hesitate to contact us at abcbank@gmail.com / 643453646456.
-
-Sincerely,
-Mohit Roy
-Loan provider
-"""
-            mail.send(msg)
-
-        return render_template("next_steps.html")
     return render_template("next_steps.html")
 
 @home_bp.route("/general_loan", methods=["GET", "POST"])
