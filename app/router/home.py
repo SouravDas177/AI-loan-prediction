@@ -5,7 +5,7 @@ from ..models.model import User
 import pandas as pd
 import pickle
 from flask_mail import Mail, Message
-from .. import mail 
+from .. import mail, db, current_app
 
 home_bp=Blueprint("home",__name__)
 
@@ -73,22 +73,21 @@ def house_loan():
         return redirect(url_for("auth.login"))
     
 
-@home_bp.route("/next_steps")
+@home_bp.route("/next_steps", methods=["GET","POST"])
 def next_steps():
-      # import the Mail instance initialized in __init__.py
-    
-    result = session.get("pred", 0)
-    user = User.query.filter_by(username=session["email"]).first()
-    recipient_email = [session["email"]]  # must be a list
+    if request.method == "POST":
+        result = session.get("pred", 0)
+        user = User.query.filter_by(username=session["email"]).first()
+        recipient_email = [session["email"]]  # must be a list
 
-    if result == 0:
-        # Loan denied
-        msg = Message(
-            subject="Update on Your Loan Application",
-            sender="sourav177official@gmail.com",
-            recipients=recipient_email
-        )
-        msg.body = f"""
+        if result == 0:
+            # Loan denied
+            msg = Message(
+                subject="Update on Your Loan Application",
+                sender="sourav177official@gmail.com",
+                recipients=recipient_email
+            )
+            msg.body = f"""
 Dear {user},
 
 We appreciate your recent application for a loan with [Your Company Name]. After careful review, we regret to inform you that we are unable to approve your loan request at this time.
@@ -101,16 +100,16 @@ Sincerely,
 Mohit Roy
 Loan provider
 """
-        mail.send(msg)
+            mail.send(msg)
 
-    else:
-        # Loan approved
-        msg = Message(
-            subject="Your Loan Application Has Been Approved",
-            sender="sourav177official@gmail.com",
-            recipients=recipient_email
-        )
-        msg.body = f"""
+        else:
+            # Loan approved
+            msg = Message(
+                subject="Your Loan Application Has Been Approved",
+                sender="sourav177official@gmail.com",
+                recipients=recipient_email
+            )
+            msg.body = f"""
 Dear {user},
 
 We are pleased to inform you that your loan application with [Your Company Name] has been approved.
@@ -123,8 +122,9 @@ Sincerely,
 Mohit Roy
 Loan provider
 """
-        mail.send(msg)
+            mail.send(msg)
 
+        return render_template("next_steps.html")
     return render_template("next_steps.html")
 
 @home_bp.route("/general_loan", methods=["GET", "POST"])
