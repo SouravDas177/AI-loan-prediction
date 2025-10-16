@@ -5,7 +5,7 @@ from ..models.model import User
 import pandas as pd
 import pickle
 from flask_mail import Mail, Message
-from .. import mail, db, current_app
+from .. import mail, db, create_app
 
 home_bp=Blueprint("home",__name__)
 
