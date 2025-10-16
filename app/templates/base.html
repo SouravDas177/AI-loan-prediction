@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Template Title Block - Unchanged -->
+    <title>{% block title%}AI-Powered Loan Prediction | AetherCorp{%endblock%}</title>
+    <!-- Tailwind CSS Link - Unchanged -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    
+    <style>
+        /* Ensures the text uses the Inter font and dark background */
+        /* Applying the deep dark background with a subtle blue glow effect for a professional aesthetic */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 75% 50%, rgba(20, 30, 80, 0.4), transparent 50%), 
+                        radial-gradient(circle at 25% 90%, rgba(5, 15, 50, 0.3), transparent 70%),
+                        #0a0514; /* Deep, almost black blue-violet */
+            min-height: 100vh;
+        }
+        /* Custom container for width consistency */
+        .main-container { max-width: 1280px; }
+        /* Style for the CTA button shadow */
+        .cta-button { transition: all 0.3s; }
+        .cta-button:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.7);
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 
+        *** PROFESSIONAL HEADER START (Focus on perfect placement and responsiveness) ***
+    -->
+    <header class="bg-[#14101e]/95 backdrop-blur-sm shadow-xl sticky top-0 z-50 border-b border-slate-800/50">
+        <div class="main-container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Logo and Company Name (AetherCorp) - Consistent Left Placement -->
+            <div class="flex items-center space-x-2">
+                <svg class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9.25 10A3.75 3.75 0 0113 6.25h1.5A3.75 3.75 0 0118.25 10L17.75 17M6 17h12M6 17c0 2.21 1.79 4 4 4s4-1.79 4-4M6 17l1.5-7" />
+                </svg>
+                <span class="text-2xl font-extrabold text-white tracking-wider">AetherCorp</span>
+            </div>
+
+            <!-- Desktop Navigation Links and CTA Button - Center/Right Placement -->
+            <nav class="hidden md:flex items-center space-x-6 lg:space-x-10">
+                <a href="#" class="text-slate-300 hover:text-blue-400 transition duration-300 font-medium">Home</a>
+                <a href="#" class="text-slate-300 hover:text-blue-400 transition duration-300 font-medium">Features</a>
+                <a href="#" class="text-slate-300 hover:text-blue-400 transition duration-300 font-medium">Pricing</a>
+                <a href="#" class="text-slate-300 hover:text-blue-400 transition duration-300 font-medium">About Us</a>
+                
+                <!-- Get Started Button - Integrated within the navigation -->
+                <a href="/signup" class="cta-button px-5 py-2 text-base font-semibold rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition duration-300 shadow-lg shadow-blue-500/40 ml-4">
+                    Get Started
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button (Hamburger) - The functional button -->
+            <button id="mobile-menu-button" class="md:hidden text-slate-300 hover:text-white p-2 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+                <!-- Hamburger Icon SVG (often mistaken for three dots) -->
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay (Click to close, dims background) - New Element -->
+    <div id="mobile-menu-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+    
+    <!-- Mobile Menu Sidebar Content - Updated to slide from the right -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 w-64 sm:w-80 bg-[#0a0514] z-50 transform translate-x-full transition-transform duration-300 shadow-2xl md:hidden">
+        <!-- Add padding top to clear the fixed header -->
+        <div class="pt-20 px-4 space-y-2">
+            <a href="#" class="block px-4 py-3 rounded-lg text-base font-semibold text-white hover:bg-slate-700/50 transition duration-150">Home</a>
+            <a href="#" class="block px-4 py-3 rounded-lg text-base font-semibold text-white hover:bg-slate-700/50 transition duration-150">Features</a>
+            <a href="#" class="block px-4 py-3 rounded-lg text-base font-semibold text-white hover:bg-slate-700/50 transition duration-150">Pricing</a>
+            <a href="#" class="block px-4 py-3 rounded-lg text-base font-semibold text-white hover:bg-slate-700/50 transition duration-150">About Us</a>
+            <a href="/signup" class="block px-4 py-3 mt-4 text-center rounded-xl text-base font-bold text-white bg-blue-600 hover:bg-blue-700 cta-button shadow-blue-500/40">
+                Get Started
+            </a>
+        </div>
+    </div>
+
+    <!-- 
+        *** FLASH MESSAGES SECTION ***
+        This block uses Jinja to display any flash messages (e.g., success, error) 
+        and styles them based on the category.
+    -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="main-container mx-auto px-4 sm:px-6 lg:px-8 pt-6 z-40 relative">
+        {% for category, message in messages %}
+        {% set alert_classes = {
+            'success': 'bg-green-900 border-green-700 text-green-300',
+            'error': 'bg-red-900 border-red-700 text-red-300',
+            'warning': 'bg-yellow-900 border-yellow-700 text-yellow-300',
+            'info': 'bg-blue-900 border-blue-700 text-blue-300'
+        }.get(category, 'bg-gray-700 border-gray-600 text-gray-300') %}
+
+        <div class="p-4 mb-4 rounded-xl border {{ alert_classes }} shadow-lg" role="alert">
+            <div class="flex items-center">
+                <!-- Simple icon/indicator for visual type cue -->
+                <span class="font-bold mr-2 text-lg">
+                    {% if category == 'success' %}✓{% elif category == 'error' %}✕{% elif category == 'warning' %}!{% else %}i{% endif %}
+                </span>
+                <span class="text-sm font-medium">{{ message }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <!-- 
+        *** PAGE-SPECIFIC CONTENT BLOCK ***
+        Other templates will extend this one and fill this block.
+    -->
+    <main class="main-container mx-auto px-4 sm:px-6 lg:px-8">
+        {% block content %}
+        <!-- Default content if none is provided by a child template -->
+        <div class="py-16 text-center text-slate-400">
+            <p class="text-xl">Content block ready.</p>
+        </div>
+        {% endblock %}
+    </main>
+    
+    <!-- 
+        *** PROFESSIONAL FOOTER START ***
+    -->
+    <footer class="bg-[#14101e] border-t border-slate-800 mt-16 shadow-inner shadow-slate-900/30">
+        <div class="main-container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
+            
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
+                <!-- Col 1: Logo and Summary (takes up 2 columns on mobile) -->
+                <div class="col-span-2 md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <svg class="h-7 w-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9.25 10A3.75 3.75 0 0113 6.25h1.5A3.75 3.75 0 0118.25 10L17.75 17M6 17h12M6 17c0 2.21 1.79 4 4 4s4-1.79 4-4M6 17l1.5-7" />
+                        </svg>
+                        <span class="text-2xl font-bold text-white tracking-wider">AetherCorp</span>
+                    </div>
+                    <p class="text-slate-400 text-sm max-w-sm">Innovating for the next generation of web applications with modular, highly performant solutions.</p>
+                </div>
+
+                <!-- Col 2: Resources -->
+                <div>
+                    <h3 class="text-base font-extrabold text-white uppercase tracking-wider mb-4">Resources</h3>
+                    <ul class="space-y-3 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Support Center</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Our Blog</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Partners</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Company -->
+                <div>
+                    <h3 class="text-base font-extrabold text-white uppercase tracking-wider mb-4">Company</h3>
+                    <ul class="space-y-3 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Contact</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Investor Relations</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Legal -->
+                <div>
+                    <h3 class="text-base font-extrabold text-white uppercase tracking-wider mb-4">Legal</h3>
+                    <ul class="space-y-3 text-slate-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright and Social Media Section -->
+            <div class="mt-10 border-t border-slate-800 pt-6 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p class="text-slate-500 order-2 md:order-1 mt-4 md:mt-0">
+                    &copy; 2024 AetherCorp. All rights reserved. Built with passion.
+                </p>
+                <!-- Social Media Icons (Right aligned on desktop) -->
+                <div class="flex space-x-6 order-1 md:order-2">
+                    <a href="#" class="text-slate-400 hover:text-blue-400 transition" aria-label="Twitter">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.25 5.66a8.91 8.91 0 0 1-2.52.69 4.47 4.47 0 0 0 1.96-2.43 8.97 8.97 0 0 1-2.82 1.07 4.48 4.48 0 0 0-7.65 4.09 12.67 12.67 0 0 1-9.21-4.66 4.48 4.48 0 0 0 1.39 5.96 4.46 4.46 0 0 1-2.03-.56v.05a4.48 4.48 0 0 0 3.59 4.4 4.5 4.5 0 0 1-2.02.08 4.48 4.48 0 0 0 4.18 3.12 8.98 8.98 0 0 1-5.59 1.93 12.63 12.63 0 0 0 6.88 2.02c8.2 0 12.67-6.79 12.67-12.67 0-.19 0-.37-.01-.56a9.08 9.08 0 0 0 2.22-2.3z"/></svg>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-blue-400 transition" aria-label="LinkedIn">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.47 22H3.53V7.07h2.89v12.21h11.16V7.07h2.89V22zM12 4.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- *** PROFESSIONAL FOOTER END *** -->
+    
+    <!-- JavaScript for Mobile Menu Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+            const toggleMenu = () => {
+                // Toggle the sidebar position: translate-x-full (off screen) or translate-x-0 (on screen)
+                mobileMenu.classList.toggle('translate-x-full');
+                // Toggle the visibility of the overlay (the dimmed background)
+                mobileMenuOverlay.classList.toggle('hidden');
+                
+                // Optional: Prevents body scrolling when sidebar is open
+                document.body.classList.toggle('overflow-hidden');
+            };
+
+            if (menuButton && mobileMenu && mobileMenuOverlay) {
+                // 1. Toggle menu on button click
+                menuButton.addEventListener('click', toggleMenu);
+                
+                // 2. Close menu when overlay (dimmed background) is clicked
+                mobileMenuOverlay.addEventListener('click', toggleMenu);
+                
+                // 3. Optional: Close menu when a link inside the menu is clicked
+                const menuLinks = mobileMenu.querySelectorAll('a');
+                menuLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        // Check if the menu is currently open (doesn't have translate-x-full)
+                        if (!mobileMenu.classList.contains('translate-x-full')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+    
+</body>
+</html>

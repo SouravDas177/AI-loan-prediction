@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Loan Risk | AetherCorp</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Import Inter font and apply dark theme */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate-900 */
+            color: #e2e8f0; /* Slate-200 */
+        }
+        .main-container {
+            max-width: 1280px; /* Limit container width for desktop */
+        }
+    </style>
+</head>
+<body>
+    <main class="main-container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- 1. HERO SECTION -->
+        <section class="py-16 md:py-24 text-center">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                Predict Loan Risk. <span class="text-blue-400">Decide Smarter.</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-8">
+                Harness the power of AI-driven prediction models** to assess loan applicant risk with unparalleled speed and accuracy, reducing default rates instantly.
+            </p>
+            
+            <a href="/signup" class="cta-button inline-flex items-center space-x-2 px-8 py-3 text-xl font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition duration-300 shadow-xl shadow-blue-500/50 transform hover:scale-105">
+                <span>Start Predicting Now</span>
+                <!-- Right Arrow Icon -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+
+            <!-- App Visualization Image Placeholder -->
+            <div class="mt-16 w-full max-w-5xl mx-auto rounded-xl overflow-hidden shadow-2xl shadow-blue-900/50 border border-slate-700/50 backdrop-blur-md bg-slate-900/50">
+                <img 
+                    src="https://placehold.co/800x450/1e293b/93c5fd?text=AI+Loan+Prediction+Dashboard" 
+                    alt="AI Loan Prediction Dashboard Interface Mockup" 
+                    class="w-full h-auto object-cover"
+                    onerror="this.onerror=null; this.src='https://placehold.co/800x450/1e293b/93c5fd?text=Visualization+Unavailable';"
+                />
+            </div>
+        </section>
+
+        <!-- 2. FEATURES SECTION -->
+        <section class="py-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-12">Why Choose AetherCorp Prediction?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1: High Accuracy -->
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-blue-500/20 transition duration-300">
+                    <div class="text-blue-400 mb-4">
+                        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.427a2.25 2.25 0 011.066 3.018l-1.071 3.213m-2.275 6.825l-2.001 2.001a1.5 1.5 0 01-2.121 0l-4-4a1.5 1.5 0 010-2.121l4-4a1.5 1.5 0 012.121 0l2.001 2.001"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3 text-center">Precision Accuracy</h3>
+                    <p class="text-slate-400 text-base text-center">Our proprietary deep learning models are trained on billions of data points, ensuring prediction accuracy far exceeding traditional scoring methods.</p>
+                </div>
+
+                <!-- Feature 2: Real-time Speed -->
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-blue-500/20 transition duration-300">
+                    <div class="text-blue-400 mb-4">
+                        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3 text-center">Instant Decisioning</h3>
+                    <p class="text-slate-400 text-base text-center">Get a complete risk profile and loan decision in milliseconds, drastically cutting down processing time and improving customer experience.</p>
+                </div>
+
+                <!-- Feature 3: Risk Mitigation -->
+                <div class="bg-slate-900/80 p-8 rounded-2xl border border-slate-700/50 shadow-xl hover:shadow-blue-500/20 transition duration-300">
+                    <div class="text-blue-400 mb-4">
+                        <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M14 9l12 3v-11l-12-3M4 6v14l12 3v-14L4 6z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-3 text-center">Optimized Portfolio</h3>
+                    <p class="text-slate-400 text-base text-center">Minimize loss exposure by identifying and filtering out high-risk applicants, leading to a healthier, more profitable loan portfolio.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HOW IT WORKS SECTION -->
+        <section class="py-16">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-white mb-12">Simple Integration, Powerful Results</h2>
+            
+            <div class="flex flex-col lg:flex-row justify-center space-y-8 lg:space-y-0 lg:space-x-12">
+                
+                <!-- Step 1 -->
+                <div class="text-center max-w-xs mx-auto">
+                    <div class="w-16 h-16 mx-auto bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-4 shadow-lg shadow-blue-500/50">1</div>
+                    <h4 class="text-xl font-semibold text-white mb-2">Input Data</h4>
+                    <p class="text-slate-400">Securely feed applicant data into our API or upload via our web interface.</p>
+                </div>
+                
+                <!-- Separator/Arrow (Desktop) -->
+                <div class="hidden lg:flex items-center justify-center text-blue-400 text-3xl font-thin">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+                <!-- Separator/Arrow (Mobile) -->
+                <div class="flex lg:hidden items-center justify-center text-blue-400 text-3xl font-thin transform rotate-90 mx-auto">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+
+
+                <!-- Step 2 -->
+                <div class="text-center max-w-xs mx-auto">
+                    <div class="w-16 h-16 mx-auto bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-4 shadow-lg shadow-blue-500/50">2</div>
+                    <h4 class="text-xl font-semibold text-white mb-2">AI Processing</h4>
+                    <p class="text-slate-400">Our model calculates hundreds of risk factors in real-time, leveraging machine learning.</p>
+                </div>
+                
+                <!-- Separator/Arrow (Desktop) -->
+                <div class="hidden lg:flex items-center justify-center text-blue-400 text-3xl font-thin">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+                <!-- Separator/Arrow (Mobile) -->
+                <div class="flex lg:hidden items-center justify-center text-blue-400 text-3xl font-thin transform rotate-90 mx-auto">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="text-center max-w-xs mx-auto">
+                    <div class="w-16 h-16 mx-auto bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold text-white mb-4 shadow-lg shadow-blue-500/50">3</div>
+                    <h4 class="text-xl font-semibold text-white mb-2">Receive Decision</h4>
+                    <p class="text-slate-400">Get a clear, actionable prediction score and recommendation (Approve/Reject).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. FINAL CTA BANNER -->
+        <section class="py-16">
+            <div class="bg-slate-900/80 p-8 sm:p-12 rounded-2xl text-center border border-slate-700/50 shadow-2xl shadow-indigo-900/50">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-blue-400 mb-3">Ready to Transform Your Lending?</h2>
+                <p class="text-xl text-slate-300 mb-8">Reduce defaults and accelerate your loan origination process today.</p>
+                
+                <a href="/signup" class="cta-button inline-flex items-center space-x-2 px-10 py-3.5 text-xl font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 transition duration-300 shadow-xl shadow-blue-500/50 transform hover:scale-105">
+                    <span>Get Started Free</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </section>
+        
+    </main>
+</body>
+</html>

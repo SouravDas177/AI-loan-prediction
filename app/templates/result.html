@@ -1,0 +1,113 @@
+{%extends "base.html"%}
+
+{% block title %}AI result{% endblock %}
+
+{% block content %}
+<style>
+    /* Component-specific styles inherited from the form for theme consistency */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    .loan-form-container {
+        font-family: 'Inter', sans-serif;
+        color: #e2e8f0; /* Light text for high contrast */
+    }
+
+    /* Base dark background color */
+    .result-card-bg {
+        background-color: #101827;
+    }
+    
+    /* Glowing shadow for accepted status (Green) */
+    .shadow-success {
+        box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); /* Green 500 */
+    }
+
+    /* Glowing shadow for rejected status (Red) */
+    .shadow-failure {
+        box-shadow: 0 0 30px rgba(239, 68, 68, 0.4); /* Red 500 */
+    }
+
+    /* Styling for the action button */
+    .action-button {
+        transition: all 0.3s;
+        /* Keep blue glow for general actions */
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+    .action-button:hover {
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.7);
+        transform: scale(1.02);
+    }
+</style>
+
+<!-- Main container to apply the full-page dark background and centering -->
+<div class="loan-form-container flex justify-center items-center min-h-screen p-4" style="background-color: #060A18;">
+    
+    {% if pred == 1 %}
+    <!-- LOAN ACCEPTED (SUCCESS CARD) -->
+    <div class="w-full max-w-xl result-card-bg p-8 sm:p-12 rounded-2xl shadow-success border border-green-600/50 text-center">
+        
+        <!-- Success Icon -->
+        <svg class="w-20 h-20 text-green-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-green-400 mb-4 tracking-tight">
+            LOAN ACCEPTED
+        </h1>
+        
+        <p class="text-xl text-slate-300 mb-8">
+            Congratulations! Your loan application meets our risk assessment criteria and has been approved.
+        </p>
+
+        <a href="/next_steps" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-green-600 hover:bg-green-700 w-full">
+            <span>View Next Steps & Documents</span>
+        </a>
+    </div>
+
+    {% elif pred == 0 %}
+    <!-- LOAN REJECTED (FAILURE CARD) -->
+    <div class="w-full max-w-xl result-card-bg p-8 sm:p-12 rounded-2xl shadow-failure border border-red-600/50 text-center">
+
+        <!-- Failure Icon -->
+        <svg class="w-20 h-20 text-red-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-red-400 mb-4 tracking-tight">
+            LOAN REJECTED
+        </h1>
+        
+        <p class="text-xl text-slate-300 mb-8">
+            We are sorry to inform you that your application did not meet our current eligibility requirements.
+        </p>
+
+        <a href="/next_steps" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-red-600 hover:bg-red-700 w-full">
+            <span>Contact Support for Details</span>
+        </a>
+    </div>
+
+    {% else %}
+    <!-- UNKNOWN/PENDING STATUS (NEUTRAL CARD) -->
+    <div class="w-full max-w-xl result-card-bg p-8 sm:p-12 rounded-2xl shadow-3xl shadow-blue-500/20 border border-blue-600/50 text-center">
+
+        <!-- Pending Icon -->
+        <svg class="w-20 h-20 text-blue-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-400 mb-4 tracking-tight">
+            REVIEW IN PROGRESS
+        </h1>
+        
+        <p class="text-xl text-slate-300 mb-8">
+            Your application is currently under manual review. Please check back later or contact us.
+        </p>
+
+        <a href="/dashboard" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 w-full">
+            <span>Return to Dashboard</span>
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

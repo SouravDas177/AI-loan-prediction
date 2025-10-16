@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}404 Not Found{% endblock %}
+
+{% block content %}
+<style>
+    /* Component-specific styles inherited for theme consistency */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    .error-container {
+        font-family: 'Inter', sans-serif;
+        color: #e2e8f0; /* Light text for high contrast */
+    }
+
+    /* Base dark background color */
+    .error-card-bg {
+        background-color: #101827;
+    }
+    
+    /* Glowing accent for the main card (Neutral Blue) */
+    .shadow-accent {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); /* Blue 500 */
+    }
+
+    /* Styling for the action button */
+    .action-button {
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+    .action-button:hover {
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.7);
+        transform: scale(1.02);
+    }
+</style>
+
+<!-- Main container to apply the full-page dark background and centering -->
+<div class="error-container flex justify-center items-center min-h-screen p-4" style="background-color: #060A18;">
+    
+    <!-- 404 Error Card -->
+    <div class="w-full max-w-xl error-card-bg p-8 sm:p-12 rounded-2xl shadow-accent border border-blue-600/50 text-center">
+        
+        <header class="mb-8">
+            <!-- Large, striking 404 Text -->
+            <h1 class="text-9xl font-extrabold text-white mb-4 tracking-tighter" style="text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);">
+                404
+            </h1>
+            
+            <h2 class="text-3xl sm:text-4xl font-bold text-red-400 mb-4">
+                Page Not Found
+            </h2>
+            
+            <p class="text-xl text-slate-300">
+                It looks like the page you were looking for has either moved or doesn't exist.
+            </p>
+        </header>
+
+        <div class="space-y-4">
+            <!-- Action Button to return to Home/Dashboard -->
+            <a href="/model" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 w-full">
+                <span>Go to Home Page</span>
+                <!-- Home Icon -->
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-15 0v10a1 1 0 001 1h4a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h4a1 1 0 001-1V12"></path></svg>
+            </a>
+            
+            <p class="text-sm text-slate-500">
+                If you believe this is an error, please try returning to the previous page.
+            </p>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

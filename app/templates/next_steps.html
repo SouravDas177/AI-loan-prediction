@@ -1,0 +1,102 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}Loan Next Steps{% endblock %}
+
+{% block content %}
+<style>
+    /* Component-specific styles inherited from the form for theme consistency */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    .loan-form-container {
+        font-family: 'Inter', sans-serif;
+        color: #e2e8f0; /* Light text for high contrast */
+    }
+
+    /* Base dark background color */
+    .step-card-bg {
+        background-color: #101827;
+    }
+    
+    /* Glowing accent for the main card (Blue) */
+    .shadow-accent {
+        box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); /* Blue 500 */
+    }
+    
+    /* Highlighted section for the next step */
+    .highlight-section {
+        background-color: #0c4a6e; /* Darker blue background */
+        border-left: 5px solid #3b82f6; /* Bright blue vertical border */
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+    }
+
+    /* Styling for all action buttons */
+    .action-button {
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+    .action-button:hover {
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.7);
+        transform: scale(1.02);
+    }
+</style>
+
+<!-- Main container to apply the full-page dark background and centering -->
+<div class="loan-form-container flex justify-center items-center min-h-screen p-4" style="background-color: #060A18;">
+    
+    <!-- Next Steps Card -->
+    <div class="w-full max-w-2xl step-card-bg p-8 sm:p-12 rounded-2xl shadow-accent border border-blue-600/50">
+        
+        <header class="text-center mb-8">
+            <!-- Icon -->
+            <svg class="w-16 h-16 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-tight">
+                Your Loan is Approved!
+            </h1>
+            <p class="text-blue-300 text-lg">
+                Follow these essential steps to finalize your home loan.
+            </p>
+        </header>
+
+        <!-- Highlighted Next Step -->
+        <div class="highlight-section mb-8">
+            <h2 class="text-2xl font-bold text-white mb-3 flex items-center">
+                <span class="text-3xl mr-3 text-yellow-400">1.</span> Schedule a Meeting
+            </h2>
+            <p class="text-lg text-slate-200">
+                **Crucial Action:** To review the final terms, sign the loan agreement, and discuss disbursement details, you must **contact your dedicated Relationship Manager or a Bank Member.** They will guide you through the required documentation and set up your closing date.
+            </p>
+        </div>
+
+        <!-- Secondary Steps List -->
+        <div class="space-y-4 mb-10 text-left">
+            <div class="flex items-start">
+                <svg class="w-6 h-6 text-green-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <p class="text-slate-300">Prepare required documentation (ID, income proof, property appraisal). Your manager will confirm the exact list.</p>
+            </div>
+            <div class="flex items-start">
+                <svg class="w-6 h-6 text-green-500 mt-1 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                <p class="text-slate-300">Review the finalized **Escrow and Title documents** before the scheduled closing.</p>
+            </div>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Button 1: Contact Manager (Primary Action) -->
+            <a href="#" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-green-600 hover:bg-green-700 w-full">
+                <span>Contact My Relationship Manager Now</span>
+            </a>
+            
+            <!-- Button 2: Models Page (Secondary Action) -->
+            <a href="/model" class="action-button inline-flex justify-center items-center space-x-2 px-8 py-3 text-lg font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 w-full">
+                <span>Explore Predictive Models Page</span>
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

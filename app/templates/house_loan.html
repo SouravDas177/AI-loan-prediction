@@ -1,0 +1,184 @@
+{% extends "base.html"%}
+
+{%block title%}House loan form{%endblock%}
+
+{% block content %}
+<style>
+    /* Component-specific styles for the "shining" dark theme */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    
+    /* Ensure Inter is used and define the base text color for the form block */
+    .loan-form-container {
+        font-family: 'Inter', sans-serif;
+        color: #e2e8f0; /* Light text for high contrast */
+    }
+
+    /* Base styling for form controls */
+    .form-input, .form-select {
+        /* The width: 100% and block display ensures stacking */
+        width: 100%; 
+        padding: 0.75rem;
+        margin-top: 0.25rem;
+        margin-bottom: 1rem; /* Added margin for separation */
+        background-color: #1e293b; /* Slate-800 for inputs */
+        border: 1px solid #334155; /* Subtle dark border */
+        border-radius: 0.5rem;
+        color: white;
+        transition: all 0.3s ease-in-out;
+    }
+    .form-input::placeholder, .form-select option:disabled {
+        color: #94a3b8; /* Slate-400 placeholder color */
+    }
+
+    /* Focus state with glowing blue accent */
+    .form-input:focus, .form-select:focus {
+        outline: none;
+        border-color: #3b82f6; /* Blue-500 */
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4), 0 0 10px rgba(59, 130, 246, 0.2); /* Subtle glow effect */
+        background-color: #101827; /* Slightly darker on focus */
+    }
+    
+    /* Styling for the disabled placeholder option */
+    .form-select option:disabled {
+        color: #6c757d; 
+    }
+
+    /* Styling for the submit button (more prominent glow) */
+    .submit-button {
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    }
+    .submit-button:hover {
+        box-shadow: 0 4px 20px rgba(59, 130, 246, 0.7);
+        transform: scale(1.02);
+    }
+</style>
+
+<!-- Main container to apply the full-page dark background and centering -->
+<div class="loan-form-container flex justify-center items-center min-h-screen p-4" style="background-color: #060A18;">
+    <!-- Reduced max-w to max-w-2xl for a cleaner, sequential single-column look -->
+    <div class="w-full max-w-2xl bg-[#101827] p-8 sm:p-12 rounded-2xl shadow-3xl shadow-blue-500/20 border border-blue-600/50">
+        <header class="text-center mb-10">
+            <!-- Icon/Picture for style (Data visualization SVG) -->
+            <div class="flex justify-center mb-4">
+                <svg class="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                </svg>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-tight">AI Loan Risk Assessment</h1>
+            <p class="text-blue-300 text-lg">Securely submit your details to assess eligibility and risk.</p>
+        </header>
+
+        <!-- Removed grid and grouping divs to enforce sequential stacking -->
+        <form action="/house_loan" method="post">
+            
+            <div>
+                <label for="gender" class="block text-sm font-medium text-slate-300 mb-1">Gender</label>
+                <select id="gender" name="gender" class="form-select" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="married" class="block text-sm font-medium text-slate-300 mb-1">Marital Status</label>
+                <select id="married" name="married" class="form-select" required>
+                    <option value="" disabled selected>Marital status</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            
+            <div>
+                <label for="dependents" class="block text-sm font-medium text-slate-300 mb-1">Dependents</label>
+                <select id="dependents" name="dependents" class="form-select" required>
+                    <option value="" disabled selected>Dependents</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="4">3+</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="education" class="block text-sm font-medium text-slate-300 mb-1">Education</label>
+                <select id="education" name="education" class="form-select" required>
+                    <option value="" disabled selected>Education Level</option>
+                    <option value="Graduate">Graduate</option>
+                    <option value="Not Graduate">Not Graduate</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="Self_Employed" class="block text-sm font-medium text-slate-300 mb-1">Self Employed</label>
+                <select id="Self_Employed" name="Self_Employed" class="form-select" required>
+                    <option value="" disabled selected>Self Employed Status</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ApplicantIncome" class="block text-sm font-medium text-slate-300 mb-1"> Applicant Income ($)</label>
+                <input type="number" name="ApplicantIncome" id="ApplicantIncome" class="form-input" placeholder="e.g., 5000" required>
+            </div>
+
+            <div>
+                <label for="CoapplicantIncome" class="block text-sm font-medium text-slate-300 mb-1"> Coapplicant Income ($)</label>
+                <input type="number" name="CoapplicantIncome" id="CoapplicantIncome" class="form-input" placeholder="e.g., 1000" required>
+            </div>
+
+            <div>
+                <label for="LoanAmount" class="block text-sm font-medium text-slate-300 mb-1"> Loan Amount ($)</label>
+                <input type="number" name="LoanAmount" id="LoanAmount" class="form-input" placeholder="e.g., 120000" required>
+            </div>
+            
+            <div>
+                <label for="Loan_Amount_Term" class="block text-sm font-medium text-slate-300 mb-1"> Loan Term (Months)</label>
+                <input type="number" name="Loan_Amount_Term" id="Loan_Amount_Term" class="form-input" placeholder="e.g., 360" required>
+            </div>
+            
+            <div>
+                <label for="Credit_History" class="block text-sm font-medium text-slate-300 mb-1">Credit History (0 or 1)</label>
+                <select id="Credit_History" name="Credit_History" class="form-select" required>
+                    <option value="" disabled selected>Credit History Score</option>
+                    <option value="0">0 (Poor)</option>
+                    <option value="1">1 (Good)</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="Property_Area" class="block text-sm font-medium text-slate-300 mb-1">Property Area</label>
+                <select id="Property_Area" name="Property_Area" class="form-select" required>
+                    <option value="" disabled selected>Property Area</option>
+                    <option value="Urban">Urban</option>
+                    <option value="Semiurban">Semiurban</option>
+                    <option value="Rural">Rural</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="Applicant_Age" class="block text-sm font-medium text-slate-300 mb-1">Applicant Age</label>
+                <input type="number" name="Applicant_Age" id="Applicant_Age" class="form-input" placeholder="e.g., 35" required>
+            </div>
+
+            <div>
+                <label for="Existing_Liabilities" class="block text-sm font-medium text-slate-300 mb-1">Existing Liabilities (Count)</label>
+                <input type="number" name="Existing_Liabilities" id="Existing_Liabilities" class="form-input" placeholder="e.g., 2" required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-8">
+                <button type="submit" class="submit-button w-full inline-flex justify-center items-center space-x-2 px-6 py-3 text-lg font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700">
+                    <span>Submit Application for Assessment</span>
+                    <!-- Right Arrow Icon -->
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+            
+        </form>
+    </div>
+</div>
+{% endblock %}
+

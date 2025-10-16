@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Sign Up Form - Blue Glow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-dark': '#0f172a',
+                        'card-bg': 'rgba(17, 24, 39, 0.8)',
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 75% 50%, rgba(20, 30, 80, 0.4), transparent 50%), 
+                        radial-gradient(circle at 25% 90%, rgba(5, 15, 50, 0.3), transparent 70%),
+                        #0a0514;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+        }
+        .flash-message { animation: fadein 0.3s ease-out; }
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto">
+    <div id="signup-card" class="backdrop-blur-sm bg-slate-900/80 p-8 rounded-2xl shadow-2xl shadow-indigo-900/50 border border-slate-700/50 transition-all duration-300">
+        <h1 class="text-3xl font-extrabold text-white mt-4 mb-2">Create Account</h1>
+        <p class="text-base text-slate-300 mb-6">Join our platform by filling out the details below.</p>
+
+        <!-- Flask Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-6 space-y-3">
+                    {% for category, message in messages %}
+                        <div class="flash-message p-4 rounded-xl text-white {% if category == 'success' %}bg-green-600{% elif category == 'danger' %}bg-red-600{% elif category == 'warning' %}bg-yellow-500 text-black{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form -->
+        <form id="signupForm" action="{{ url_for('auth.signup') }}" method="POST" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-slate-400 mb-1">Name</label>
+                <input type="text" id="username" name="username" required placeholder="Your name"
+                    class="w-full px-5 py-2.5 bg-slate-800/80 text-white rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200 placeholder-slate-500 shadow-inner shadow-black/20">
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-slate-400 mb-1">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="your.name@example.com"
+                    class="w-full px-5 py-2.5 bg-slate-800/80 text-white rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200 placeholder-slate-500 shadow-inner shadow-black/20">
+            </div>
+            <div>
+                <label for="pass" class="block text-sm font-medium text-slate-400 mb-1">Password</label>
+                <input type="password" id="pass" name="pass" required placeholder="••••••••"
+                    class="w-full px-5 py-2.5 bg-slate-800/80 text-white rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200 placeholder-slate-500 shadow-inner shadow-black/20">
+            </div>
+            <div>
+                <label for="pass2" class="block text-sm font-medium text-slate-400 mb-1">Confirm Password</label>
+                <input type="password" id="pass2" name="pass2" required placeholder="••••••••"
+                    class="w-full px-5 py-2.5 bg-slate-800/80 text-white rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all duration-200 placeholder-slate-500 shadow-inner shadow-black/20">
+            </div>
+            <button type="submit" class="btn-primary w-full py-3 font-semibold text-white rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 shadow-xl shadow-blue-800/50 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]">Sign Up</button>
+        </form>
+
+        <div class="mt-8 text-center">
+            <p class="text-sm text-slate-500">
+                Already have an account? 
+                <a href="{{ url_for('auth.login') }}" class="text-blue-400 hover:text-blue-300 font-semibold transition-colors">Log In</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
